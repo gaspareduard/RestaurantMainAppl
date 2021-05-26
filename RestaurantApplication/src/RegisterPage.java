@@ -2,6 +2,14 @@ import java.awt.EventQueue;
 import java.awt.*;
 import javax.swing.*;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.Cipher;
+
+import java.io.File;
+import java.io.FileWriter; 
+
+
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
 import java.awt.SystemColor;
@@ -19,6 +27,10 @@ import javax.swing.DropMode;
 import javax.swing.JTextArea;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.*;
 
 public class RegisterPage {
 
@@ -102,6 +114,7 @@ public class RegisterPage {
 		frame.getContentPane().add(btnRegister);
 		
 		JTextPane txtpnConfirmpassword = new JTextPane();
+		txtpnConfirmpassword.setEnabled(false);
 		txtpnConfirmpassword.setBounds(61, 320, 81, 48);
 		txtpnConfirmpassword.setText("Confirm Password");
 		txtpnConfirmpassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -110,6 +123,7 @@ public class RegisterPage {
 		frame.getContentPane().add(txtpnConfirmpassword);
 		
 		passwordField_1 = new JPasswordField();
+		passwordField_1.setEnabled(false);
 		passwordField_1.setBounds(158, 326, 259, 24);
 		frame.getContentPane().add(passwordField_1);
 		
@@ -152,6 +166,7 @@ public class RegisterPage {
 		WarningSignalPassword1.setVisible(false);
 		
 		JTextPane WarningSignalPassword2 = new JTextPane();
+		WarningSignalPassword2.setEnabled(false);
 		WarningSignalPassword2.setBounds(427, 326, 47, 31);
 		WarningSignalPassword2.setEditable(false);
 		WarningSignalPassword2.setText("***");
@@ -170,46 +185,70 @@ public class RegisterPage {
 		
 		
 		//starts as if fields are correctly written
-		int fan=1; 
-
+		
+		JSONArray jrr = new JSONArray();
 		
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int fan=1; 
 				
 				if(textField.getText().length()  == 0) {
 					WarningSignalUsername.setVisible(true);
-					int fan=0;
+					fan=0;
 				}
 				else
 					WarningSignalUsername.setVisible(false);
 				
 				if(passwordField.getPassword().length == 0) {
 					WarningSignalPassword1.setVisible(true);
-					int fan=0;
+					fan=0;
 				}
 				else
 					WarningSignalPassword1.setVisible(false);
 
-				
+				/*
 				if(passwordField_1.getPassword().length == 0) {
 					WarningSignalPassword2.setVisible(true);
-					int fan=0;
+					fan=0;
 				}
 				else
 					WarningSignalPassword2.setVisible(false);
+				*/
 				
-				if( (index <1 ) || (index>3) ) {
-					int fan=0;
+				/*
+				if( index <0  ) {
+					fan=0;
 					textField_1.setVisible(true);
 				}
+				else {
+					textField_1.setVisible(false);
+				}
+				*/
+				
 				
 				if( fan==1 ){
-					if( passwordField_1.getPassword()==passwordField.getPassword() ) {
+				//	if( passwordField_1.getPassword()==passwordField.getPassword() ) {
 						// GOOD CASE ------- Register
+					JSONObject obj = new JSONObject();
+
+					obj.put("Username",textField.getText());
+					obj.put("Password",passwordField_1.getPassword());
+					jrr.put(obj);
+					
+					try {
+						FileWriter file= new FileWriter(new File("userData.json"));
+						file.write(jrr.toString());
+						file.close();
+					}catch(Exception ex) {
+						JOptionPane.showMessageDialog(null,"Error occured");
 					}
+					
+					JOptionPane.showMessageDialog(null,jrr);
+				/*	}
 					else {
 						// BAD CASE------ Passwords don't match
 					}
+				*/
 				}
 				
 			}

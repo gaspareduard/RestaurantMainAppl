@@ -1,18 +1,26 @@
 import java.awt.EventQueue;
 import javax.swing.*;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.swing.JFrame;
-import java.awt.FlowLayout;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.SystemColor;
 import javax.swing.JTextPane;
-import javax.swing.UIManager;
+import java.awt.SystemColor;
+import java.awt.Font;
+import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+import javax.swing.AbstractListModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.DropMode;
+import javax.swing.JTextArea;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LoginScreen {
 
@@ -87,10 +95,28 @@ public class LoginScreen {
 		idField.setBounds(126, 80, 259, 24);
 		frame.getContentPane().add(idField);
 		
+		JSONArray jrr = new JSONArray();
+		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JSONObject obj = new JSONObject();
 				
+				int size = jrr.length();
+				obj.put("Username",idField.getText());
+				obj.put("Password",passwordField.getPassword());
+				jrr.put(obj);
+				JOptionPane.showMessageDialog(null,jrr);
+				
+				for(int i=0;i<size;i++) {
+					if(obj.equals(jrr.get(0))) {
+						JOptionPane.showMessageDialog(null, "Password matched");
+						break;
+					}
+					else if(i==size-1) {
+						JOptionPane.showMessageDialog(null, "Incorrect User/Password");
+					}
+				}
 			}
 		});
 		btnNewButton.setBounds(132, 183, 112, 38);
