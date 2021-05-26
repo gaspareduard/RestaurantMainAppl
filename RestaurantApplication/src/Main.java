@@ -6,7 +6,7 @@ public class Main {
 		
 		LoginScreen Login = new LoginScreen();
 		Login.main(null);
-
+		
 	}
 
 }

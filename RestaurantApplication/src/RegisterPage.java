@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DropMode;
 import javax.swing.JTextArea;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class RegisterPage {
 
@@ -25,6 +27,10 @@ public class RegisterPage {
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
 	private JTextArea WarningSignalUsername;
+	/**
+	 * @wbp.nonvisual location=232,339
+	 */
+
 
 	/**
 	 * Launch the application.
@@ -54,60 +60,62 @@ public class RegisterPage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setLocationByPlatform(true);
+		frame.setBounds(100, 100, 602, 557);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JTextPane txtUsername = new JTextPane();
+		txtUsername.setBounds(61, 169, 85, 31);
 		txtUsername.setText("Username");
 		txtUsername.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtUsername.setEditable(false);
 		txtUsername.setBackground(SystemColor.menu);
-		txtUsername.setBounds(10, 55, 85, 31);
 		frame.getContentPane().add(txtUsername);
 		
 		textField = new JTextField();
-		textField.setBounds(105, 55, 259, 24);
+		textField.setBounds(158, 169, 259, 24);
 		frame.getContentPane().add(textField);
 		
 		JTextPane txtPassword = new JTextPane();
+		txtPassword.setBounds(61, 272, 81, 24);
 		txtPassword.setText("Password");
 		txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtPassword.setEditable(false);
 		txtPassword.setBackground(SystemColor.menu);
-		txtPassword.setBounds(14, 97, 81, 24);
 		frame.getContentPane().add(txtPassword);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(105, 97, 259, 24);
+		passwordField.setBounds(158, 272, 259, 24);
 		frame.getContentPane().add(passwordField);
 		
 		JTextPane txtpnRegister = new JTextPane();
+		txtpnRegister.setBounds(234, 56, 85, 33);
 		txtpnRegister.setText("Register");
 		txtpnRegister.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		txtpnRegister.setEditable(false);
 		txtpnRegister.setBackground(SystemColor.menu);
-		txtpnRegister.setBounds(174, 11, 85, 33);
 		frame.getContentPane().add(txtpnRegister);
 		
 		JButton btnRegister = new JButton("Register");
-
-		btnRegister.setBounds(268, 187, 112, 38);
+		btnRegister.setBounds(442, 460, 112, 38);
 		frame.getContentPane().add(btnRegister);
 		
 		JTextPane txtpnConfirmpassword = new JTextPane();
+		txtpnConfirmpassword.setBounds(61, 320, 81, 48);
 		txtpnConfirmpassword.setText("Confirm Password");
 		txtpnConfirmpassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtpnConfirmpassword.setEditable(false);
 		txtpnConfirmpassword.setBackground(SystemColor.menu);
-		txtpnConfirmpassword.setBounds(14, 132, 81, 48);
 		frame.getContentPane().add(txtpnConfirmpassword);
 		
 		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(105, 152, 259, 24);
+		passwordField_1.setBounds(158, 326, 259, 24);
 		frame.getContentPane().add(passwordField_1);
 		
 		JList list = new JList();
+
+		list.setBounds(71, 379, 71, 59);
 		list.setBackground(SystemColor.menu);
 		list.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Manager", "Chef", "Bartender"};
@@ -118,38 +126,46 @@ public class RegisterPage {
 				return values[index];
 			}
 		});
+		int index = list.getSelectedIndex();
 		
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setBounds(24, 187, 154, 63);
 		frame.getContentPane().add(list);
 		
 		WarningSignalUsername = new JTextArea();
+		WarningSignalUsername.setBounds(427, 164, 50, 31);
 		WarningSignalUsername.setFont(new Font("Monospaced", Font.PLAIN, 24));
 		WarningSignalUsername.setForeground(SystemColor.windowText);
 		WarningSignalUsername.setEditable(false);
 		WarningSignalUsername.setText("***");
 		WarningSignalUsername.setBackground(SystemColor.menu);
-		WarningSignalUsername.setBounds(367, 54, 50, 31);
 		frame.getContentPane().add(WarningSignalUsername);
 		WarningSignalUsername.setColumns(10);
 		WarningSignalUsername.setVisible(false);
 		
 		JTextPane WarningSignalPassword1 = new JTextPane();
+		WarningSignalPassword1.setBounds(425, 268, 49, 31);
 		WarningSignalPassword1.setEditable(false);
 		WarningSignalPassword1.setFont(new Font("Monospaced", Font.PLAIN, 24));
 		WarningSignalPassword1.setText("***");
 		WarningSignalPassword1.setBackground(SystemColor.menu);
-		WarningSignalPassword1.setBounds(366, 94, 49, 31);
 		frame.getContentPane().add(WarningSignalPassword1);
 		WarningSignalPassword1.setVisible(false);
 		
 		JTextPane WarningSignalPassword2 = new JTextPane();
+		WarningSignalPassword2.setBounds(427, 326, 47, 31);
 		WarningSignalPassword2.setEditable(false);
 		WarningSignalPassword2.setText("***");
 		WarningSignalPassword2.setFont(new Font("Monospaced", Font.PLAIN, 24));
 		WarningSignalPassword2.setBackground(SystemColor.menu);
-		WarningSignalPassword2.setBounds(366, 149, 47, 31);
 		frame.getContentPane().add(WarningSignalPassword2);
+		
+		Label textField_1 = new Label();
+		textField_1.setFont(new Font("Dialog", Font.PLAIN, 25));
+		textField_1.setBackground(SystemColor.menu);
+		textField_1.setText("NO SELECTED ROLE !!!");
+		textField_1.setBounds(10, 444, 296, 37);
+		textField_1.setVisible(false);
+		frame.getContentPane().add(textField_1);
 		WarningSignalPassword2.setVisible(false);
 		
 		
@@ -182,18 +198,18 @@ public class RegisterPage {
 				else
 					WarningSignalPassword2.setVisible(false);
 				
-				if( (passwordField_1.getPassword().length != 0) && (passwordField.getPassword().length != 0) ){
-					if( passwordField_1.getPassword()==passwordField.getPassword() ) {
-						// GOOD CASE
-					}
+				if( (index <1 ) || (index>3) ) {
+					int fan=0;
+					textField_1.setVisible(true);
 				}
 				
-				if(fan==0) {
-					//RETRY
-					
-				}else {
-					//REGISTER
-					
+				if( fan==1 ){
+					if( passwordField_1.getPassword()==passwordField.getPassword() ) {
+						// GOOD CASE ------- Register
+					}
+					else {
+						// BAD CASE------ Passwords don't match
+					}
 				}
 				
 			}
